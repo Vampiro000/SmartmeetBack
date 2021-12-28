@@ -14,15 +14,10 @@ db.collection = (collectionName) => {
     return new Promise(async function (resolve) {
         await client.connect();
         const db = client.db(dbName);
-        console.log('Connected successfully to server', db);
+        // console.log('Connected successfully to server', db);
         resolve(db.collection(collectionName))
     })
 }
-
-
-
-
-
 
 module.exports = db;
 

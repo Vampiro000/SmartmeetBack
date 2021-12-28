@@ -3,6 +3,7 @@ var uuid = require('node-uuid');
 var express = require('express')
 var session = require('express-session');
 var user = require('./controllers/UserController');
+var QRcode = require('./controllers/QRcodeController')
 
 
 const { resolve } = require('core-js/library/es6/promise');
@@ -10,6 +11,7 @@ const cors = require('cors');
 var app = express()
 try {
     app.use("/user", user)
+    app.use("/QRcode", QRcode)
 
 } catch (e) { console.log(e) }
 
