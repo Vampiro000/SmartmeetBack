@@ -8,7 +8,12 @@ var QRcode = require('./controllers/QRcodeController')
 
 const { resolve } = require('core-js/library/es6/promise');
 const cors = require('cors');
+
 var app = express()
+app.use(cors({
+    origin: '*',
+    credentials: true
+}))
 try {
     app.use("/user", user)
     app.use("/QRcode", QRcode)
@@ -16,13 +21,8 @@ try {
 } catch (e) { console.log(e) }
 
 
-app.use(cors({
-    origin: 'http://localhost:8080',
-    credentials: true
-}))
-
-
 app.get("/hello", (req, res) => {
+    console.log("Hello Uri Called")
     res.status(200).json("Hello")
 });
 

@@ -18,16 +18,16 @@ async function createUser(email, password, phone) {
     });
 }
 
-async function userExist(email, password, phone) {
+async function userExist(email, password) {
     const user = await userCollection.then(async (request) => {
-        return request.find({ email: email }).toArray();
+        return request.find({ email: email, password: password }).toArray();
     });
     console.log("Utilisteur REchercer", user);
     if (user.length) return true;
     else return false;
 }
 
-async function getUserId(email, password, phone) {
+async function getUserId(email) {
     const user = await userCollection.then(async (request) => {
         return request.find({ email: email }).toArray();
     });

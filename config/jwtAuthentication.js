@@ -1,7 +1,7 @@
 var jwt = require("jsonwebtoken");
 
 const JWT_SIGN_SECRET = "123_One_Two_Three_Un_Deux_Trois_OUHED_JOJE_TLETA"
-const expiresIn = '1h'; // Milliseconds
+const expiresIn = '360000'; // Milliseconds
 
 // Retrieve User only from Id so his information are not readable from hacker
 module.exports = {

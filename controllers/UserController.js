@@ -7,6 +7,7 @@ var jwtAuth = require("../config/jwtAuthentication");
 // Home page route.
 router.post("/register", jsonParser, async function (req, res) {
     const user = req.body;
+    //TODO Verifier qu'il nexiste pas deja ?
     if (user.email && user.password && user.phone) {
         await UserService.createUser(user.email, user.password, user.phone);
         res.send("User Created ! Please Verify your mail");
@@ -14,18 +15,19 @@ router.post("/register", jsonParser, async function (req, res) {
 });
 
 router.post("/login", jsonParser, async function (req, res) {
+    console.log("/Login URI CALLED")
     const user = req.body;
-    if (user.email && user.password && user.phone) {
+    if (user.email && user.password) {
         const userExist = await UserService.userExist(
-            user.email,
-            user.password,
-            user.phone
+            user.email, user.password
         );
         if (userExist) {
-            const userId = await UserService.getUserId(user.email, user.password, user.phone)
+            const userId = await UserService.getUserId(user.email)
             const userData = { userId }
-            const accessToken = jwtAuth.generateTokenForUser(userData)
+            const accessToken = 'Bearer ' + jwtAuth.generateTokenForUser(userData)
             res.send(accessToken);
+        } else {
+            res.status(500).send("LOGIN: USER Not FOund");
         }
     } else res.status(401).send("LOGIN : Missing Mendatory Informations");
 });
